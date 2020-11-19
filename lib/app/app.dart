@@ -12,8 +12,8 @@ class App extends StatelessWidget {
     ]);
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        systemNavigationBarColor: Colors.transparent,
+        statusBarColor: Colors.white,
+        systemNavigationBarColor: Colors.white,
         systemNavigationBarDividerColor: Colors.transparent,
       ),
       child: MaterialApp(
