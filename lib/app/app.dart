@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:setel_geofence/home/home.dart';
 import 'package:setel_geofence/resources/theme.dart';
 
 class App extends StatelessWidget {
@@ -18,6 +19,7 @@ class App extends StatelessWidget {
       child: MaterialApp(
         title: 'Setel',
         theme: getThemeData(context),
+        home: Home(),
       ),
     );
   }
