@@ -23,6 +23,15 @@ class _MapsState extends State<Maps> {
         target: _center,
         zoom: 11.0,
       ),
+      myLocationButtonEnabled: true,
+      buildingsEnabled: true,
+      indoorViewEnabled: true,
+      compassEnabled: true,
+      myLocationEnabled: true,
+      zoomGesturesEnabled: true,
+      rotateGesturesEnabled: true,
+      tiltGesturesEnabled: true,
+      scrollGesturesEnabled: true,
     );
   }
 }
