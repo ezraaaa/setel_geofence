@@ -14,10 +14,11 @@ ThemeData _buildTheme() {
     primaryColorBrightness: Brightness.dark,
     accentColorBrightness: Brightness.dark,
     appBarTheme: AppBarTheme(
-      color: Colors.white,
+      color: Colors.transparent,
       textTheme: _buildTextTheme(base.textTheme),
       centerTitle: false,
       brightness: Brightness.light,
+      elevation: 0.0,
     ),
     textSelectionColor: setelBlue500.withOpacity(0.2),
     textSelectionHandleColor: setelBlue500,
