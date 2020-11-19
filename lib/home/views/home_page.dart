@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:setel_geofence/home/maps.dart';
+import 'package:setel_geofence/home/views/widgets/maps.dart';
 
-class Home extends StatelessWidget {
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
