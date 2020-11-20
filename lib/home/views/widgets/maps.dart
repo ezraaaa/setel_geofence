@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:setel_geofence/common_widgets/loader.dart';
+import 'package:setel_geofence/home/blocs/bloc/permission_bloc.dart';
 
 class Maps extends StatefulWidget {
   @override
@@ -17,21 +20,34 @@ class _MapsState extends State<Maps> {
 
   @override
   Widget build(BuildContext context) {
-    return GoogleMap(
-      onMapCreated: _onMapCreated,
-      initialCameraPosition: CameraPosition(
-        target: _center,
-        zoom: 11.0,
-      ),
-      myLocationButtonEnabled: true,
-      buildingsEnabled: true,
-      indoorViewEnabled: true,
-      compassEnabled: true,
-      myLocationEnabled: true,
-      zoomGesturesEnabled: true,
-      rotateGesturesEnabled: true,
-      tiltGesturesEnabled: true,
-      scrollGesturesEnabled: true,
+    return BlocBuilder<PermissionBloc, PermissionState>(
+      builder: (BuildContext context, PermissionState state) {
+        if (state is PermissionCheckInProgress) {
+          return const Loader(
+            isShimmer: true,
+            child: Card(),
+          );
+        }
+        if (state is PermissionCheckSuccess) {
+          return GoogleMap(
+            onMapCreated: _onMapCreated,
+            initialCameraPosition: CameraPosition(
+              target: _center,
+              zoom: 11.0,
+            ),
+            myLocationButtonEnabled: true,
+            buildingsEnabled: true,
+            indoorViewEnabled: true,
+            compassEnabled: true,
+            myLocationEnabled: true,
+            zoomGesturesEnabled: true,
+            rotateGesturesEnabled: true,
+            tiltGesturesEnabled: true,
+            scrollGesturesEnabled: true,
+          );
+        }
+        return Text('Permission Denied Permanently');
+      },
     );
   }
 }
