@@ -48,6 +48,7 @@ dependencies:
   permission_handler:
   formz:
   google_maps_flutter:
+  connectivity:
 
 dev_dependencies:
   flutter_test:
