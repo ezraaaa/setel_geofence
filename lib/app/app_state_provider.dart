@@ -20,7 +20,7 @@ class AppStateProvider extends StatelessWidget {
               return PermissionBloc(
                 permissionRepository:
                     RepositoryProvider.of<PermissionRepository>(context),
-              )..add(RequestLocationPermission());
+              )..add(CheckLocationPermission());
             },
           ),
         ],
