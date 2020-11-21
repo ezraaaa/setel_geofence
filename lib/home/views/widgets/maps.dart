@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:setel_geofence/common_widgets/loader.dart';
-import 'package:setel_geofence/home/blocs/bloc/permission_bloc.dart';
+import 'package:setel_geofence/home/blocs/permission/permission_bloc.dart';
 
 class Maps extends StatefulWidget {
   @override
