@@ -6,7 +6,8 @@ class PermissionRepository {
     return await permission.status;
   }
 
-  Future<PermissionStatus> requestPermission(PermissionWithService permission) async {
-    return await Permission.contacts.request();
+  Future<PermissionStatus> requestPermission(
+      PermissionWithService permission) async {
+    return await permission.request();
   }
 }
