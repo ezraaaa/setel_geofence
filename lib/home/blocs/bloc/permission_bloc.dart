@@ -30,8 +30,8 @@ class PermissionBloc extends Bloc<PermissionEvent, PermissionState> {
 
   Stream<PermissionState> _mapCheckLocationPermissionToState() async* {
     yield PermissionCheckInProgress();
-    final PermissionStatus status =
-        await _permissionRepository.checkPermission(Permission.location);
+    PermissionStatus status = PermissionStatus.undetermined;
+    status = await _permissionRepository.checkPermission(Permission.location);
     switch (status) {
       case PermissionStatus.granted:
         yield PermissionCheckSuccess();
@@ -40,13 +40,13 @@ class PermissionBloc extends Bloc<PermissionEvent, PermissionState> {
         yield PermissionCheckFailure();
         break;
       case PermissionStatus.denied:
-        add( RequestLocationPermission());
+        add(RequestLocationPermission());
         break;
       case PermissionStatus.restricted:
         yield PermissionCheckFailure();
         break;
       case PermissionStatus.undetermined:
-        add( RequestLocationPermission());
+        add(RequestLocationPermission());
         break;
       default:
         yield PermissionCheckFailure();
