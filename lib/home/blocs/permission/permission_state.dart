@@ -9,12 +9,6 @@ abstract class PermissionState extends Equatable {
 
 class PermissionInitial extends PermissionState {}
 
-class PermissionCheckInProgress extends PermissionState {}
-
-class PermissionCheckSuccess extends PermissionState {}
-
-class PermissionCheckFailure extends PermissionState {}
-
 class PermissionRequestInProgress extends PermissionState {}
 
 class PermissionRequestSuccess extends PermissionState {}

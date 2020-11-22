@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:setel_geofence/common_widgets/loader.dart';
 import 'package:setel_geofence/home/blocs/permission/permission_bloc.dart';
 
@@ -23,13 +22,19 @@ class _MapsState extends State<Maps> {
   Widget build(BuildContext context) {
     return BlocBuilder<PermissionBloc, PermissionState>(
       builder: (BuildContext context, PermissionState state) {
-        if (state is PermissionCheckInProgress) {
+        if (state is PermissionRequestInProgress) {
           return const Loader(
             isShimmer: true,
-            child: Card(),
+            child: SizedBox(
+              width: double.infinity,
+              height: double.infinity,
+              child: Card(
+                margin: EdgeInsets.zero,
+              ),
+            ),
           );
         }
-        if (state is PermissionCheckSuccess) {
+        if (state is PermissionRequestSuccess) {
           return GoogleMap(
             onMapCreated: _onMapCreated,
             initialCameraPosition: CameraPosition(
@@ -44,6 +49,8 @@ class _MapsState extends State<Maps> {
             rotateGesturesEnabled: true,
             tiltGesturesEnabled: true,
             scrollGesturesEnabled: true,
+            myLocationButtonEnabled: false,
+            myLocationEnabled: false,
           );
         }
         return Center(
@@ -52,10 +59,7 @@ class _MapsState extends State<Maps> {
             children: <Widget>[
               const Text('Permission Denied Permanently'),
               RaisedButton(
-                onPressed: () {
-                  openAppSettings();
-                  context.read<PermissionBloc>().add(CheckLocationPermission());
-                },
+                onPressed: () {},
                 child: const Text('Settings'),
               )
             ],

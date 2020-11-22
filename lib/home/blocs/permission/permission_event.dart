@@ -7,6 +7,4 @@ abstract class PermissionEvent extends Equatable {
   List<Object> get props => null;
 }
 
-class CheckLocationPermission extends PermissionEvent {}
-
 class RequestLocationPermission extends PermissionEvent {}

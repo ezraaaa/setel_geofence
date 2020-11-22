@@ -45,10 +45,10 @@ dependencies:
   animations:
   undraw:
     git: https://github.com/kay4ik/undraw
-  permission_handler:
   formz:
   google_maps_flutter:
   connectivity:
+  flutter_geofence:
 
 dev_dependencies:
   flutter_test:

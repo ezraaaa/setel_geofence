@@ -4,6 +4,8 @@
 <dict>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Setel needs to access your location</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Setel needs to access your location</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
