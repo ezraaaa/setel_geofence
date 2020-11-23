@@ -59,24 +59,8 @@ class _MapsState extends State<Maps> {
           child: IllustratedMessage(
             illustration: UnDrawIllustration.accept_request,
             height: MediaQuery.of(context).size.width * 0.3,
-            child: Column(
-              children: <Widget>[
-                const ListTile(
-                  title: Text(
-                    'Permission Denied',
-                    textAlign: TextAlign.center,
-                  ),
-                  subtitle: Text(
-                    'We could not get your permission',
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                RaisedButton(
-                  onPressed: () {},
-                  child: const Text('Settings'),
-                ),
-              ],
-            ),
+            title: 'Permission Denied',
+            subtitle: 'We could not get your location permission',
           ),
         );
       },
