@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:setel_geofence/app/app.dart';
-import 'package:setel_geofence/geofences/blocs/geofences/geofences_bloc.dart';
+import 'package:setel_geofence/geofences/blocs/stations/stations_bloc.dart';
 import 'package:setel_geofence/home/blocs/geofence/geofence_bloc.dart';
 import 'package:setel_geofence/home/blocs/permission/permission_bloc.dart';
-import 'package:setel_geofence/repositories/geofences/firebase_geofences_repository.dart';
+import 'package:setel_geofence/repositories/stations/firebase_stations_repository.dart';
 
 class AppStateProvider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: <RepositoryProvider<dynamic>>[
-        RepositoryProvider<FirebaseGeofencesRepository>(
-          create: (_) => FirebaseGeofencesRepository(),
+        RepositoryProvider<FirebaseStationsRepository>(
+          create: (_) => FirebaseStationsRepository(),
         ),
       ],
       child: MultiBlocProvider(
@@ -27,11 +27,11 @@ class AppStateProvider extends StatelessWidget {
               return GeofenceBloc()..add(InitiateGeofence());
             },
           ),
-          BlocProvider<GeofencesBloc>(
+          BlocProvider<StationsBloc>(
             create: (BuildContext context) {
-              return GeofencesBloc(
-                geofencesRepository:
-                    RepositoryProvider.of<FirebaseGeofencesRepository>(context),
+              return StationsBloc(
+                stationsRepository:
+                    RepositoryProvider.of<FirebaseStationsRepository>(context),
               );
             },
           ),

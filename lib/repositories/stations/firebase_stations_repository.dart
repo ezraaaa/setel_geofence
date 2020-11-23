@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:setel_geofence/home/models/station/station.dart';
-import 'package:setel_geofence/repositories/geofences/geofences_repository.dart';
+import 'package:setel_geofence/repositories/stations/stations_repository.dart';
 
-class FirebaseGeofencesRepository extends GeofencesRepository {
+class FirebaseStationsRepository extends StationsRepository {
   final CollectionReference _geofencesRef =
       FirebaseFirestore.instance.collection('geofences');
 
