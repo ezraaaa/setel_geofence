@@ -23,6 +23,7 @@ class _HomePageState extends State<HomePage> {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         title: const Text('Setel'),
+        backgroundColor: Colors.transparent,
         actions: <Widget>[
           IconButton(
             onPressed: () {
