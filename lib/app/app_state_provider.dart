@@ -24,7 +24,9 @@ class AppStateProvider extends StatelessWidget {
           ),
           BlocProvider<GeofenceBloc>(
             create: (_) {
-              return GeofenceBloc()..add(InitiateGeofence());
+              return GeofenceBloc(
+                stationsBloc: BlocProvider.of<StationsBloc>(context),
+              )..add(InitiateGeofence());
             },
           ),
           BlocProvider<StationsBloc>(
@@ -32,7 +34,7 @@ class AppStateProvider extends StatelessWidget {
               return StationsBloc(
                 stationsRepository:
                     RepositoryProvider.of<FirebaseStationsRepository>(context),
-              );
+              )..add(LoadStations());
             },
           ),
         ],
