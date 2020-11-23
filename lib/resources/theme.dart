@@ -14,7 +14,7 @@ ThemeData _buildTheme() {
     primaryColorBrightness: Brightness.dark,
     accentColorBrightness: Brightness.dark,
     appBarTheme: AppBarTheme(
-      color: Colors.transparent,
+      color: Colors.white,
       textTheme: _buildTextTheme(base.textTheme),
       centerTitle: false,
       brightness: Brightness.light,
