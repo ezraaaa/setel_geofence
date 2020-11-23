@@ -56,12 +56,14 @@ ThemeData _buildTheme() {
       disabledColor: Colors.black.withOpacity(0.6),
       textTheme: ButtonTextTheme.primary,
       colorScheme: base.colorScheme.copyWith(
+        brightness: Brightness.dark,
         primary: setelBlue500,
         secondary: setelBlue500,
       ),
     ),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
-      backgroundColor: setelBlue500,
+      backgroundColor: Colors.white,
+      foregroundColor: Colors.black,
       disabledElevation: 0.0,
     ),
     inputDecorationTheme: const InputDecorationTheme(
