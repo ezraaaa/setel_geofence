@@ -9,6 +9,10 @@ abstract class GeofenceState extends Equatable {
 
 class GeofenceInitial extends GeofenceState {}
 
+class GeofenceInitiateInProgress extends GeofenceState {}
+
+class GeofenceInitiated extends GeofenceState {}
+
 class GeofenceEnterSuccess extends GeofenceState {
   const GeofenceEnterSuccess(this.station);
   final Station station;

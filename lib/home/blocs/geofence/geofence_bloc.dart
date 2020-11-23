@@ -35,6 +35,7 @@ class GeofenceBloc extends Bloc<GeofenceEvent, GeofenceState> {
   }
 
   Stream<GeofenceState> _mapInitiateGeofenceToState() async* {
+    yield GeofenceInitiateInProgress();
     Geofence.initialize();
     Geofence.startListening(GeolocationEvent.entry, (Geolocation entry) {
       print('Entry of a georegion, Welcome to: ${entry.id}');
@@ -45,17 +46,20 @@ class GeofenceBloc extends Bloc<GeofenceEvent, GeofenceState> {
       print('Exit of a georegion, Byebye to: ${entry.id}');
       add(ExitGeofence(entry.id));
     });
+    yield GeofenceInitiated();
   }
 
   Stream<GeofenceState> _mapEnterGeofence(String id) async* {
-    _stations.firstWhere((Station station) {
+    final Station station = _stations.firstWhere((Station station) {
       return station.id == id;
     });
+    yield GeofenceEnterSuccess(station);
   }
 
   Stream<GeofenceState> _mapExitGeofence(String id) async* {
-    _stations.firstWhere((Station station) {
+    final Station station = _stations.firstWhere((Station station) {
       return station.id == id;
     });
+    yield GeofenceExitSuccess(station);
   }
 }
