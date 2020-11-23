@@ -5,14 +5,16 @@ import 'package:undraw/undraw.dart';
 class IllustratedMessage extends StatelessWidget {
   const IllustratedMessage({
     @required this.illustration,
-    @required this.child,
     this.width,
     this.height,
+    this.title,
+    this.subtitle,
   });
   final UnDrawIllustration illustration;
-  final Widget child;
   final double width;
   final double height;
+  final String title;
+  final String subtitle;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,16 @@ class IllustratedMessage extends StatelessWidget {
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodyText2,
               duration: const Duration(milliseconds: 200),
-              child: child,
+              child: ListTile(
+                title: Text(
+                  title,
+                  textAlign: TextAlign.center,
+                ),
+                subtitle: Text(
+                  subtitle,
+                  textAlign: TextAlign.center,
+                ),
+              ),
             ),
           ),
         ),
