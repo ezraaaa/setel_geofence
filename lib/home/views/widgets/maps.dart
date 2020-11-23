@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:setel_geofence/common_widgets/illustrated_message.dart';
 import 'package:setel_geofence/common_widgets/loader.dart';
 import 'package:setel_geofence/home/blocs/permission/permission_bloc.dart';
+import 'package:undraw/illustrations.dart';
 
 class Maps extends StatefulWidget {
   @override
@@ -54,15 +56,27 @@ class _MapsState extends State<Maps> {
           );
         }
         return Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              const Text('Permission Denied Permanently'),
-              RaisedButton(
-                onPressed: () {},
-                child: const Text('Settings'),
-              )
-            ],
+          child: IllustratedMessage(
+            illustration: UnDrawIllustration.accept_request,
+            height: MediaQuery.of(context).size.width * 0.3,
+            child: Column(
+              children: <Widget>[
+                const ListTile(
+                  title: Text(
+                    'Permission Denied',
+                    textAlign: TextAlign.center,
+                  ),
+                  subtitle: Text(
+                    'We could not get your permission',
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                RaisedButton(
+                  onPressed: () {},
+                  child: const Text('Settings'),
+                ),
+              ],
+            ),
           ),
         );
       },
