@@ -34,7 +34,7 @@ class AppStateProvider extends StatelessWidget {
               return StationsBloc(
                 stationsRepository:
                     RepositoryProvider.of<FirebaseStationsRepository>(context),
-              )..add(LoadStations());
+              );
             },
           ),
         ],
