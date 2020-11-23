@@ -20,8 +20,10 @@ ThemeData _buildTheme() {
       brightness: Brightness.light,
       elevation: 0.0,
     ),
-    textSelectionColor: setelBlue500.withOpacity(0.2),
-    textSelectionHandleColor: setelBlue500,
+    textSelectionTheme: TextSelectionThemeData(
+      selectionColor: setelBlue500.withOpacity(0.2),
+      selectionHandleColor: setelBlue500,
+    ),
     scaffoldBackgroundColor: Colors.white,
     canvasColor: Colors.white,
     dialogTheme: DialogTheme(

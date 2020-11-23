@@ -45,13 +45,17 @@ dependencies:
   animations:
   undraw:
     git: https://github.com/kay4ik/undraw
-  permission_handler:
   formz:
   google_maps_flutter:
+  connectivity:
+  flutter_geofence:
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  json_serializable:
+  build_runner:
+  flutter_launcher_icons:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
