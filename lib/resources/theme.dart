@@ -63,7 +63,7 @@ ThemeData _buildTheme() {
     ),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: Colors.white,
-      foregroundColor: Colors.black,
+      foregroundColor: setelBlue500,
       disabledElevation: 0.0,
     ),
     inputDecorationTheme: const InputDecorationTheme(
