@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_geofence/geofence.dart';
 import 'package:meta/meta.dart';
-import 'package:setel_geofence/geofences/blocs/stations/stations_bloc.dart';
+import 'package:setel_geofence/admin/blocs/stations/stations_bloc.dart';
 import 'package:setel_geofence/home/models/station/station.dart';
 
 part 'geofence_event.dart';
