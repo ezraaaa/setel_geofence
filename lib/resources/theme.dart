@@ -52,18 +52,17 @@ ThemeData _buildTheme() {
     ),
     buttonTheme: ButtonThemeData(
       shape: const StadiumBorder(),
-      buttonColor: setelBlue500,
       disabledColor: Colors.black.withOpacity(0.6),
       textTheme: ButtonTextTheme.primary,
       colorScheme: base.colorScheme.copyWith(
-        brightness: Brightness.dark,
-        primary: setelBlue500,
-        secondary: setelBlue500,
+        brightness: Brightness.light,
+        primary: Colors.black,
+        secondary: Colors.black,
       ),
     ),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: Colors.white,
-      foregroundColor: setelBlue500,
+      foregroundColor: Colors.black,
       disabledElevation: 0.0,
     ),
     inputDecorationTheme: const InputDecorationTheme(

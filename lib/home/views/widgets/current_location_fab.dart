@@ -28,7 +28,6 @@ class CurrentLocationFAB extends StatelessWidget {
                         );
                   },
                   child: const Icon(Icons.my_location),
-                  foregroundColor: Colors.black,
                 );
               }
               return const SizedBox.shrink();
