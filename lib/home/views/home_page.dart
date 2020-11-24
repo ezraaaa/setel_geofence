@@ -67,12 +67,17 @@ class _HomePageState extends State<HomePage> {
     return MultiBlocListener(
       listeners: <BlocListener<dynamic, dynamic>>[
         BlocListener<GeofenceBloc, GeofenceState>(
-          listener: (BuildContext context, GeofenceState state) {
-            if (state is GeofenceEnterSuccess) {
+          listener: (BuildContext context, GeofenceState geofenceState) {
+            final SsidState ssidState =
+                BlocProvider.of<SsidBloc>(context).state;
+
+            if (geofenceState is GeofenceEnterSuccess ||
+                ssidState is SSIDMatchSuccess) {
               _showStationDetailsBottomSheet(
-                  context: context, station: state.station);
+                  context: context,
+                  station: (geofenceState as GeofenceEnterSuccess).station);
             }
-            if (state is GeofenceExitSuccess) {
+            if (geofenceState is GeofenceExitSuccess) {
               Navigator.popUntil(
                   context, ModalRoute.withName(Navigator.defaultRouteName));
             }
