@@ -1,9 +1,8 @@
-import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:setel_geofence/admin/blocs/stations/stations_bloc.dart';
 import 'package:setel_geofence/admin/cubits/station_form/station_form_cubit.dart';
-import 'package:setel_geofence/admin/views/add_station_page.dart';
+import 'package:setel_geofence/admin/views/widgets/add_station_fab.dart';
 import 'package:setel_geofence/common_widgets/illustrated_message.dart';
 import 'package:setel_geofence/common_widgets/loader.dart';
 import 'package:setel_geofence/home/models/station/station.dart';
@@ -128,26 +127,7 @@ class _AdminPageState extends State<AdminPage> {
             )
           ],
         ),
-        floatingActionButton: OpenContainer(
-          openBuilder: (BuildContext context, VoidCallback _) {
-            return AddStationPage();
-          },
-          closedColor: Colors.transparent,
-          openElevation: 0.0,
-          closedElevation: 6.0,
-          closedShape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(56 / 2),
-            ),
-          ),
-          closedBuilder: (BuildContext context, VoidCallback openContainer) {
-            return FloatingActionButton.extended(
-              onPressed: openContainer,
-              icon: const Icon(Icons.add),
-              label: const Text('Station'),
-            );
-          },
-        ),
+        floatingActionButton: AddStationFAB(),
       ),
     );
   }
