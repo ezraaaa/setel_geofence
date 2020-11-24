@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:setel_geofence/admin/blocs/stations/stations_bloc.dart';
 import 'package:setel_geofence/admin/views/admin_page.dart';
+import 'package:setel_geofence/common_widgets/illustrated_message.dart';
+import 'package:setel_geofence/common_widgets/loader.dart';
 import 'package:setel_geofence/home/blocs/permission/permission_bloc.dart';
+import 'package:setel_geofence/home/models/station/station.dart';
 import 'package:setel_geofence/home/views/widgets/maps.dart';
+import 'package:undraw/undraw.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -34,13 +38,48 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
-      body: Maps(),
+      body: BlocBuilder<StationsBloc, StationsState>(
+        builder: (BuildContext context, StationsState stationsState) {
+          return BlocBuilder<PermissionBloc, PermissionState>(
+            builder: (BuildContext context, PermissionState state) {
+              if (state is PermissionRequestInProgress ||
+                  stationsState is StationsLoadInProgress) {
+                return const Loader(
+                  isShimmer: true,
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: double.infinity,
+                    child: Card(
+                      margin: EdgeInsets.zero,
+                    ),
+                  ),
+                );
+              }
+              if (state is PermissionRequestSuccess &&
+                  stationsState is StationsLoadSuccess) {
+                final List<Station> stations = stationsState.stations;
+
+                return Maps(stations: stations);
+              }
+              return Center(
+                child: IllustratedMessage(
+                  illustration: UnDrawIllustration.accept_request,
+                  height: MediaQuery.of(context).size.width * 0.3,
+                  title: 'Permission Denied',
+                  subtitle: 'We could not get your location permission',
+                ),
+              );
+            },
+          );
+        },
+      ),
       floatingActionButton: BlocBuilder<PermissionBloc, PermissionState>(
         builder: (BuildContext context, PermissionState state) {
           if (state is PermissionRequestSuccess) {
             return FloatingActionButton(
               onPressed: () {},
               child: const Icon(Icons.my_location),
+              foregroundColor: Colors.black,
             );
           }
           return const SizedBox.shrink();
