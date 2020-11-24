@@ -57,7 +57,8 @@ class _HomePageState extends State<HomePage> {
               context: context, station: state.station);
         }
         if (state is GeofenceExitSuccess) {
-          print('Exit');
+          Navigator.popUntil(
+              context, ModalRoute.withName(Navigator.defaultRouteName));
         }
       },
       child: Scaffold(
