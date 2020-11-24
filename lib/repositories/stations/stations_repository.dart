@@ -4,4 +4,6 @@ abstract class StationsRepository {
   Stream<List<Station>> getStations();
 
   Future<void> addStation(Map<String, dynamic> formData);
+
+  Future<void> removeStation(String id);
 }

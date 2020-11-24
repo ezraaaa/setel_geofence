@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:setel_geofence/admin/blocs/geofences/geofences_bloc.dart';
 import 'package:setel_geofence/admin/blocs/stations/stations_bloc.dart';
+import 'package:setel_geofence/admin/blocs/update_station/update_station_bloc.dart';
 import 'package:setel_geofence/admin/cubits/station_form/station_form_cubit.dart';
 import 'package:setel_geofence/app/app.dart';
 import 'package:setel_geofence/home/blocs/current_location/current_location_bloc.dart';
@@ -56,6 +57,12 @@ class AppStateProvider extends StatelessWidget {
           BlocProvider<GeofencesBloc>(
             create: (_) => GeofencesBloc(),
           ),
+          BlocProvider<UpdateStationBloc>(create: (BuildContext context) {
+            return UpdateStationBloc(
+              stationsRepository:
+                  RepositoryProvider.of<FirebaseStationsRepository>(context),
+            );
+          })
         ],
         child: App(),
       ),
