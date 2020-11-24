@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:setel_geofence/admin/views/admin_page.dart';
 import 'package:setel_geofence/home/views/home_page.dart';
 import 'package:setel_geofence/resources/theme.dart';
 
@@ -20,6 +21,9 @@ class App extends StatelessWidget {
         title: 'Setel',
         theme: getThemeData(context),
         home: HomePage(),
+        routes: <String, Widget Function(BuildContext)>{
+          AdminPage.routeName: (BuildContext context) => AdminPage(),
+        },
       ),
     );
   }

@@ -14,7 +14,7 @@ ThemeData _buildTheme() {
     primaryColorBrightness: Brightness.dark,
     accentColorBrightness: Brightness.dark,
     appBarTheme: AppBarTheme(
-      color: Colors.transparent,
+      color: Colors.white,
       textTheme: _buildTextTheme(base.textTheme),
       centerTitle: false,
       brightness: Brightness.light,
@@ -56,12 +56,14 @@ ThemeData _buildTheme() {
       disabledColor: Colors.black.withOpacity(0.6),
       textTheme: ButtonTextTheme.primary,
       colorScheme: base.colorScheme.copyWith(
+        brightness: Brightness.dark,
         primary: setelBlue500,
         secondary: setelBlue500,
       ),
     ),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
-      backgroundColor: setelBlue500,
+      backgroundColor: Colors.white,
+      foregroundColor: setelBlue500,
       disabledElevation: 0.0,
     ),
     inputDecorationTheme: const InputDecorationTheme(

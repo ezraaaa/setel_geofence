@@ -3,13 +3,23 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_geofence/geofence.dart';
+import 'package:meta/meta.dart';
+import 'package:setel_geofence/admin/blocs/stations/stations_bloc.dart';
 import 'package:setel_geofence/home/models/station/station.dart';
 
 part 'geofence_event.dart';
 part 'geofence_state.dart';
 
 class GeofenceBloc extends Bloc<GeofenceEvent, GeofenceState> {
-  GeofenceBloc() : super(GeofenceInitial());
+  GeofenceBloc({@required this.stationsBloc}) : super(GeofenceInitial()) {
+    final StationsState stationsState = stationsBloc.state;
+    if (stationsState is StationsLoadSuccess) {
+      _stations = stationsState.stations;
+    }
+  }
+
+  final StationsBloc stationsBloc;
+  List<Station> _stations;
 
   @override
   Stream<GeofenceState> mapEventToState(
@@ -25,6 +35,7 @@ class GeofenceBloc extends Bloc<GeofenceEvent, GeofenceState> {
   }
 
   Stream<GeofenceState> _mapInitiateGeofenceToState() async* {
+    yield GeofenceInitiateInProgress();
     Geofence.initialize();
     Geofence.startListening(GeolocationEvent.entry, (Geolocation entry) {
       print('Entry of a georegion, Welcome to: ${entry.id}');
@@ -35,9 +46,20 @@ class GeofenceBloc extends Bloc<GeofenceEvent, GeofenceState> {
       print('Exit of a georegion, Byebye to: ${entry.id}');
       add(ExitGeofence(entry.id));
     });
+    yield GeofenceInitiated();
   }
 
-  Stream<GeofenceState> _mapEnterGeofence(String id) async* {}
+  Stream<GeofenceState> _mapEnterGeofence(String id) async* {
+    final Station station = _stations.firstWhere((Station station) {
+      return station.id == id;
+    });
+    yield GeofenceEnterSuccess(station);
+  }
 
-  Stream<GeofenceState> _mapExitGeofence(String id) async* {}
+  Stream<GeofenceState> _mapExitGeofence(String id) async* {
+    final Station station = _stations.firstWhere((Station station) {
+      return station.id == id;
+    });
+    yield GeofenceExitSuccess(station);
+  }
 }
