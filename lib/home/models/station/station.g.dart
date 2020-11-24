@@ -13,6 +13,7 @@ Station _$StationFromJson(Map<String, dynamic> json) {
     latitude: json['latitude'] as num,
     longitude: json['longitude'] as num,
     radius: json['radius'] as num,
+    numberOfPumps: json['numberOfPumps'] as num,
     ssid: json['ssid'] as String,
   );
 }
@@ -23,5 +24,6 @@ Map<String, dynamic> _$StationToJson(Station instance) => <String, dynamic>{
       'latitude': instance.latitude,
       'longitude': instance.longitude,
       'radius': instance.radius,
+      'numberOfPumps': instance.numberOfPumps,
       'ssid': instance.ssid,
     };
