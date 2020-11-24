@@ -1,16 +1,24 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/services.dart';
 import 'package:formz/formz.dart';
+import 'package:meta/meta.dart';
 import 'package:setel_geofence/admin/models/station_form/latitude.dart';
 import 'package:setel_geofence/admin/models/station_form/longitude.dart';
 import 'package:setel_geofence/admin/models/station_form/name.dart';
 import 'package:setel_geofence/admin/models/station_form/radius.dart';
 import 'package:setel_geofence/admin/models/station_form/ssid.dart';
+import 'package:setel_geofence/repositories/stations/stations_repository.dart';
 
 part 'station_form_state.dart';
 
 class StationFormCubit extends Cubit<StationFormState> {
-  StationFormCubit() : super(const StationFormState());
+  StationFormCubit({@required StationsRepository stationsRepository})
+      : assert(stationsRepository != null),
+        _stationsRepository = stationsRepository,
+        super(const StationFormState());
+
+  final StationsRepository _stationsRepository;
 
   void nameChanged(String value) {
     final Name name = Name.dirty(value: value);
@@ -80,5 +88,27 @@ class StationFormCubit extends Cubit<StationFormState> {
         state.radius,
       ]),
     ));
+  }
+
+  void addStation() {
+    if (!state.status.isValidated) {
+      return;
+    }
+    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    final Map<String, dynamic> formData = <String, dynamic>{
+      'name': state.name.value,
+      'latitude': num.parse(state.latitude.value),
+      'longitude': num.parse(state.longitude.value),
+      'radius': num.parse(state.radius.value),
+      'ssid': state.ssid.value,
+    };
+    try {
+      _stationsRepository.addStation(formData);
+    } on PlatformException catch (error) {
+      print(error);
+      emit(state.copyWith(status: FormzStatus.submissionFailure));
+    } finally {
+      emit(state.copyWith(status: FormzStatus.submissionSuccess));
+    }
   }
 }
