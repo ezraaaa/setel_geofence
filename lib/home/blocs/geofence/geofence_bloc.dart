@@ -12,13 +12,15 @@ part 'geofence_state.dart';
 
 class GeofenceBloc extends Bloc<GeofenceEvent, GeofenceState> {
   GeofenceBloc({@required this.stationsBloc}) : super(GeofenceInitial()) {
-    final StationsState stationsState = stationsBloc.state;
-    if (stationsState is StationsLoadSuccess) {
-      _stations = stationsState.stations;
-    }
+    _stationsStreamSubscription = stationsBloc.listen((StationsState state) {
+      if (state is StationsLoadSuccess) {
+        _stations = state.stations;
+      }
+    });
   }
 
   final StationsBloc stationsBloc;
+  StreamSubscription<StationsState> _stationsStreamSubscription;
   List<Station> _stations;
 
   @override
@@ -61,5 +63,11 @@ class GeofenceBloc extends Bloc<GeofenceEvent, GeofenceState> {
       return station.id == id;
     });
     yield GeofenceExitSuccess(station);
+  }
+
+  @override
+  Future<void> close() {
+    _stationsStreamSubscription.cancel();
+    return super.close();
   }
 }
