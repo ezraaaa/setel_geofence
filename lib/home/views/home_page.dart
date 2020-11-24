@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:setel_geofence/admin/blocs/geofences/geofences_bloc.dart';
 import 'package:setel_geofence/admin/blocs/stations/stations_bloc.dart';
 import 'package:setel_geofence/admin/views/admin_page.dart';
 import 'package:setel_geofence/common_widgets/illustrated_message.dart';
@@ -43,9 +44,14 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
-  void initState() {
+  void didChangeDependencies() {
+    context.read<StationsBloc>().listen((StationsState state) {
+      if (state is StationsLoadSuccess) {
+        context.read<GeofencesBloc>().add(UpdateGeofences(state.stations));
+      }
+    });
     BlocProvider.of<StationsBloc>(context).add(LoadStations());
-    super.initState();
+    super.didChangeDependencies();
   }
 
   @override
@@ -57,7 +63,8 @@ class _HomePageState extends State<HomePage> {
               context: context, station: state.station);
         }
         if (state is GeofenceExitSuccess) {
-          print('Exit');
+          Navigator.popUntil(
+              context, ModalRoute.withName(Navigator.defaultRouteName));
         }
       },
       child: Scaffold(
