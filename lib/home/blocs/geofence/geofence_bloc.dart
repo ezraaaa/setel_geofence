@@ -40,12 +40,10 @@ class GeofenceBloc extends Bloc<GeofenceEvent, GeofenceState> {
     yield GeofenceInitiateInProgress();
     Geofence.initialize();
     Geofence.startListening(GeolocationEvent.entry, (Geolocation entry) {
-      print('Entry of a georegion, Welcome to: ${entry.id}');
       add(EnterGeofence(entry.id));
     });
 
     Geofence.startListening(GeolocationEvent.exit, (Geolocation entry) {
-      print('Exit of a georegion, Byebye to: ${entry.id}');
       add(ExitGeofence(entry.id));
     });
     yield GeofenceInitiated();
