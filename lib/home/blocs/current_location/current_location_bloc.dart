@@ -21,12 +21,11 @@ class CurrentLocationBloc
   }
 
   Stream<CurrentLocationState> _mapLoadCurrentLocationToState() async* {
-    Coordinate coordinate;
+    yield CurrentLocationLoadInProgress();
     try {
-      coordinate = await Geofence.getCurrentLocation();
+      final Coordinate coordinate = await Geofence.getCurrentLocation();
       yield CurrentLocationLoadSuccess(coordinate);
     } catch (error) {
-      print(error);
       yield CurrentLocationLoadFailure(error.toString());
     }
   }
