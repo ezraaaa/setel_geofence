@@ -10,6 +10,7 @@ class Station {
     this.latitude,
     this.longitude,
     this.radius,
+    this.numberOfPumps,
     this.ssid,
   });
 
@@ -22,5 +23,6 @@ class Station {
   final num latitude;
   final num longitude;
   final num radius;
+  final num numberOfPumps;
   final String ssid;
 }

@@ -100,6 +100,7 @@ class StationFormCubit extends Cubit<StationFormState> {
       'latitude': num.parse(state.latitude.value),
       'longitude': num.parse(state.longitude.value),
       'radius': num.parse(state.radius.value),
+      'numberOfPumps': 6,
       'ssid': state.ssid.value,
     };
     try {
