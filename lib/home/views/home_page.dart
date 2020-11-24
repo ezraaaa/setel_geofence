@@ -4,6 +4,7 @@ import 'package:setel_geofence/admin/blocs/stations/stations_bloc.dart';
 import 'package:setel_geofence/admin/views/admin_page.dart';
 import 'package:setel_geofence/common_widgets/illustrated_message.dart';
 import 'package:setel_geofence/common_widgets/loader.dart';
+import 'package:setel_geofence/common_widgets/station/station_details.dart';
 import 'package:setel_geofence/home/blocs/geofence/geofence_bloc.dart';
 import 'package:setel_geofence/home/blocs/permission/permission_bloc.dart';
 import 'package:setel_geofence/home/models/station/station.dart';
@@ -17,6 +18,30 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  void _showStationDetailsBottomSheet(
+      {@required BuildContext context, @required Station station}) {
+    showModalBottomSheet<dynamic>(
+      context: context,
+      isScrollControlled: true,
+      enableDrag: true,
+      builder: (BuildContext context) {
+        return DraggableScrollableSheet(
+          initialChildSize: 0.5,
+          expand: false,
+          minChildSize: 0.3,
+          maxChildSize: 0.9,
+          builder: (BuildContext context, ScrollController scrollController) {
+            return StationDetails(
+              station: station,
+              scrollController: scrollController,
+              isAdmin: false,
+            );
+          },
+        );
+      },
+    );
+  }
+
   @override
   void initState() {
     BlocProvider.of<StationsBloc>(context).add(LoadStations());
@@ -28,7 +53,8 @@ class _HomePageState extends State<HomePage> {
     return BlocListener<GeofenceBloc, GeofenceState>(
       listener: (BuildContext context, GeofenceState state) {
         if (state is GeofenceEnterSuccess) {
-          print('Entered');
+          _showStationDetailsBottomSheet(
+              context: context, station: state.station);
         }
         if (state is GeofenceExitSuccess) {
           print('Exit');
