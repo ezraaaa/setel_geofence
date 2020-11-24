@@ -96,9 +96,12 @@ class StationDetails extends StatelessWidget {
               const SizedBox(
                 height: 32.0,
               ),
-              CoordinatesSection(
-                station: station,
-              ),
+              if (isAdmin)
+                CoordinatesSection(
+                  station: station,
+                )
+              else
+                const SizedBox.shrink(),
             ],
           ),
         ),
