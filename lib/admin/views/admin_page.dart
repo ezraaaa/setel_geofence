@@ -54,24 +54,23 @@ class _AdminPageState extends State<AdminPage> {
             const SliverToBoxAdapter(
               child: Divider(),
             ),
-            SliverFillRemaining(
-              child: Center(
-                child: BlocBuilder<StationsBloc, StationsState>(
-                  builder: (BuildContext context, StationsState state) {
-                    if (state is StationsLoadSuccess &&
-                        state.stations.isEmpty) {
-                      return IllustratedMessage(
+            BlocBuilder<StationsBloc, StationsState>(
+              builder: (BuildContext context, StationsState state) {
+                if (state is StationsLoadSuccess && state.stations.isEmpty) {
+                  return SliverFillRemaining(
+                    child: Center(
+                      child: IllustratedMessage(
                         illustration: UnDrawIllustration.empty,
                         height: MediaQuery.of(context).size.width * 0.3,
                         title: 'No stations',
                         subtitle:
                             'It seems like there is no stations added.\nPress + to add a station',
-                      );
-                    }
-                    return const SizedBox.shrink();
-                  },
-                ),
-              ),
+                      ),
+                    ),
+                  );
+                }
+                return const SliverToBoxAdapter(child: SizedBox.shrink());
+              },
             ),
             SliverToBoxAdapter(
               child: BlocBuilder<StationsBloc, StationsState>(
