@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_geofence/geofence.dart';
 import 'package:setel_geofence/admin/blocs/geofences/geofences_bloc.dart';
 import 'package:setel_geofence/admin/blocs/stations/stations_bloc.dart';
 import 'package:setel_geofence/admin/views/admin_page.dart';
@@ -45,8 +46,13 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void didChangeDependencies() {
-    context.read<StationsBloc>().listen((StationsState state) {
+    BlocProvider.of<StationsBloc>(context).listen((StationsState state) {
       if (state is StationsLoadSuccess) {
+        // Stopped listening to all geofences
+        Geofence.removeAllGeolocations();
+        // Start listening to geofences
+        context.read<GeofenceBloc>().add(InitiateGeofence());
+        // Add updated geofences according to station list
         context.read<GeofencesBloc>().add(UpdateGeofences(state.stations));
       }
     });

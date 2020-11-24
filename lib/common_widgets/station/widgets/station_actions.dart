@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:setel_geofence/admin/blocs/update_station/update_station_bloc.dart';
 import 'package:setel_geofence/home/models/station/station.dart';
 
 class StationActions extends StatefulWidget {
@@ -33,6 +35,8 @@ class _StationActionsState extends State<StationActions> {
             ),
             FlatButton(
               onPressed: () {
+                BlocProvider.of<UpdateStationBloc>(context)
+                    .add(RemoveStation(widget.station));
                 Navigator.pop(context);
               },
               child: const Text('Delete'),

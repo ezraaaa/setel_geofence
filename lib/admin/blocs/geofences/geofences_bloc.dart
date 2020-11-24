@@ -23,8 +23,9 @@ class GeofencesBloc extends Bloc<GeofencesEvent, GeofencesState> {
   Stream<GeofencesState> _mapUpdateGeofencesToState(
       List<Station> stations) async* {
     yield GeofencesUpdateInProgress();
-    Geofence.removeAllGeolocations();
-    stations.map((Station station) {
+    for (int index = 0; index < stations.length; index++) {
+      final Station station = stations[index];
+
       final Geolocation geolocation = Geolocation(
         id: station.id,
         latitude: double.parse(station.latitude.toString()),
@@ -32,7 +33,7 @@ class GeofencesBloc extends Bloc<GeofencesEvent, GeofencesState> {
         radius: double.parse(station.radius.toString()),
       );
       Geofence.addGeolocation(geolocation, GeolocationEvent.entry);
-    });
+    }
     yield GeofencesUpdateSuccess();
   }
 }
