@@ -30,6 +30,7 @@ class StationsBloc extends Bloc<StationsEvent, StationsState> {
   }
 
   Stream<StationsState> _mapLoadStationsToState() async* {
+    yield StationsLoadInProgress();
     _stationsStreamSubscription?.cancel();
     _stationsStreamSubscription =
         _stationsRepository.getStations().listen((List<Station> stations) {
