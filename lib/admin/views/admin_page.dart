@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:setel_geofence/admin/blocs/stations/stations_bloc.dart';
 import 'package:setel_geofence/admin/cubits/station_form/station_form_cubit.dart';
 import 'package:setel_geofence/admin/views/widgets/add_station_fab.dart';
+import 'package:setel_geofence/admin/views/widgets/station_list.dart';
 import 'package:setel_geofence/common_widgets/illustrated_message.dart';
 import 'package:setel_geofence/common_widgets/loader.dart';
 import 'package:setel_geofence/home/models/station/station.dart';
@@ -78,26 +79,7 @@ class _AdminPageState extends State<AdminPage> {
                     final List<Station> stations = state.stations;
 
                     if (stations.isNotEmpty) {
-                      return ListView.separated(
-                        padding: EdgeInsets.zero,
-                        shrinkWrap: true,
-                        physics: const ClampingScrollPhysics(),
-                        itemBuilder: (BuildContext context, int index) {
-                          final Station station = stations[index];
-
-                          return ListTile(
-                            onTap: () {},
-                            title: Text(station.name),
-                            subtitle: Text(
-                                '${station.latitude}, ${station.longitude}'),
-                            trailing: Text('${station.radius} m'),
-                          );
-                        },
-                        separatorBuilder: (BuildContext context, int index) {
-                          return const Divider();
-                        },
-                        itemCount: stations.length,
-                      );
+                      return StationList(stations: stations);
                     } else {
                       return const SizedBox.shrink();
                     }
