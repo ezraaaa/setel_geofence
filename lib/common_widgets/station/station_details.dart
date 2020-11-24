@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:setel_geofence/common_widgets/bottom_sheet_handle.dart';
 import 'package:setel_geofence/common_widgets/page_title.dart';
 import 'package:setel_geofence/common_widgets/section_title.dart';
+import 'package:setel_geofence/common_widgets/station/widgets/coordinates_section.dart';
 import 'package:setel_geofence/common_widgets/station/widgets/station_actions.dart';
 import 'package:setel_geofence/home/models/station/station.dart';
 
@@ -81,35 +82,6 @@ class StationDetails extends StatelessWidget {
               const SizedBox(
                 height: 32.0,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  const SectionTitle(text: 'Coordinates'),
-                  IconButton(
-                    icon: const Icon(Icons.copy),
-                    tooltip: 'Copy to clipboard',
-                    onPressed: () {
-                      Clipboard.setData(
-                        ClipboardData(
-                            text: '${station.latitude}, ${station.longitude}'),
-                      );
-                    },
-                  )
-                ],
-              ),
-              ListTile(
-                contentPadding: EdgeInsets.zero,
-                title: const Text('Latitude'),
-                subtitle: Text('${station.latitude}'),
-              ),
-              ListTile(
-                contentPadding: EdgeInsets.zero,
-                title: const Text('Longitude'),
-                subtitle: Text('${station.longitude}'),
-              ),
-              const SizedBox(
-                height: 32.0,
-              ),
               const SectionTitle(text: 'WiFi'),
               ListTile(
                 contentPadding: EdgeInsets.zero,
@@ -120,7 +92,13 @@ class StationDetails extends StatelessWidget {
                   tooltip: 'Not available',
                   icon: Icon(Icons.wifi_outlined),
                 ),
-              )
+              ),
+              const SizedBox(
+                height: 32.0,
+              ),
+              CoordinatesSection(
+                station: station,
+              ),
             ],
           ),
         ),
