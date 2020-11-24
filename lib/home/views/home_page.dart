@@ -9,6 +9,8 @@ import 'package:setel_geofence/common_widgets/loader.dart';
 import 'package:setel_geofence/common_widgets/station/station_details.dart';
 import 'package:setel_geofence/home/blocs/geofence/geofence_bloc.dart';
 import 'package:setel_geofence/home/blocs/permission/permission_bloc.dart';
+import 'package:setel_geofence/home/blocs/ssid/ssid_bloc.dart';
+import 'package:setel_geofence/home/blocs/wifi/wifi_bloc.dart';
 import 'package:setel_geofence/home/models/station/station.dart';
 import 'package:setel_geofence/home/views/widgets/current_location_fab.dart';
 import 'package:setel_geofence/home/views/widgets/maps.dart';
@@ -62,17 +64,28 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<GeofenceBloc, GeofenceState>(
-      listener: (BuildContext context, GeofenceState state) {
-        if (state is GeofenceEnterSuccess) {
-          _showStationDetailsBottomSheet(
-              context: context, station: state.station);
-        }
-        if (state is GeofenceExitSuccess) {
-          Navigator.popUntil(
-              context, ModalRoute.withName(Navigator.defaultRouteName));
-        }
-      },
+    return MultiBlocListener(
+      listeners: <BlocListener<dynamic, dynamic>>[
+        BlocListener<GeofenceBloc, GeofenceState>(
+          listener: (BuildContext context, GeofenceState state) {
+            if (state is GeofenceEnterSuccess) {
+              _showStationDetailsBottomSheet(
+                  context: context, station: state.station);
+            }
+            if (state is GeofenceExitSuccess) {
+              Navigator.popUntil(
+                  context, ModalRoute.withName(Navigator.defaultRouteName));
+            }
+          },
+        ),
+        BlocListener<WifiBloc, WifiState>(
+          listener: (BuildContext context, WifiState state) {
+            if (state is WifiActivityDetectSuccess) {
+              BlocProvider.of<SsidBloc>(context).add(MatchSSID());
+            }
+          },
+        ),
+      ],
       child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: AppBar(
