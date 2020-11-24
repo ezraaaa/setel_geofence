@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_geofence/geofence.dart';
 import 'package:formz/formz.dart';
 import 'package:meta/meta.dart';
 import 'package:setel_geofence/admin/models/station_form/latitude.dart';
@@ -90,7 +92,7 @@ class StationFormCubit extends Cubit<StationFormState> {
     ));
   }
 
-  void addStation() {
+  Future<void> addStation() async {
     if (!state.status.isValidated) {
       return;
     }
@@ -103,7 +105,15 @@ class StationFormCubit extends Cubit<StationFormState> {
       'ssid': state.ssid.value,
     };
     try {
-      _stationsRepository.addStation(formData);
+      final DocumentReference docRef =
+          await _stationsRepository.addStation(formData);
+      final Geolocation geolocation = Geolocation(
+        id: docRef.id,
+        latitude: double.parse(state.latitude.value),
+        longitude: double.parse(state.longitude.value),
+        radius: double.parse(state.radius.value),
+      );
+      Geofence.addGeolocation(geolocation, GeolocationEvent.entry);
     } on PlatformException catch (error) {
       print(error);
       emit(state.copyWith(status: FormzStatus.submissionFailure));
