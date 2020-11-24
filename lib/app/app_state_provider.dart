@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:setel_geofence/admin/blocs/stations/stations_bloc.dart';
 import 'package:setel_geofence/admin/cubits/station_form/station_form_cubit.dart';
 import 'package:setel_geofence/app/app.dart';
+import 'package:setel_geofence/home/blocs/current_location/current_location_bloc.dart';
 import 'package:setel_geofence/home/blocs/geofence/geofence_bloc.dart';
 import 'package:setel_geofence/home/blocs/permission/permission_bloc.dart';
 import 'package:setel_geofence/home/cubits/map/map_cubit.dart';
@@ -47,6 +48,9 @@ class AppStateProvider extends StatelessWidget {
           ),
           BlocProvider<MapCubit>(
             create: (_) => MapCubit(),
+          ),
+          BlocProvider<CurrentLocationBloc>(
+            create: (_) => CurrentLocationBloc(),
           )
         ],
         child: App(),
