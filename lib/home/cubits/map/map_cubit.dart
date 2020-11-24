@@ -10,4 +10,17 @@ class MapCubit extends Cubit<MapState> {
   void initMapController(GoogleMapController googleMapController) {
     emit(MapControllerInitiated(googleMapController));
   }
+
+  void animateToLocation(LatLng latLng) {
+    final GoogleMapController controller =
+        (state as MapControllerInitiated).googleMapController;
+    controller.animateCamera(
+      CameraUpdate.newCameraPosition(
+        CameraPosition(
+          target: latLng,
+          zoom: 18.0,
+        ),
+      ),
+    );
+  }
 }
