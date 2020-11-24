@@ -24,19 +24,19 @@ class AppStateProvider extends StatelessWidget {
               return PermissionBloc()..add(RequestLocationPermission());
             },
           ),
-          BlocProvider<GeofenceBloc>(
-            create: (_) {
-              return GeofenceBloc(
-                stationsBloc: BlocProvider.of<StationsBloc>(context),
-              )..add(InitiateGeofence());
-            },
-          ),
           BlocProvider<StationsBloc>(
             create: (BuildContext context) {
               return StationsBloc(
                 stationsRepository:
                     RepositoryProvider.of<FirebaseStationsRepository>(context),
               );
+            },
+          ),
+          BlocProvider<GeofenceBloc>(
+            create: (BuildContext context) {
+              return GeofenceBloc(
+                stationsBloc: BlocProvider.of<StationsBloc>(context),
+              )..add(InitiateGeofence());
             },
           ),
           BlocProvider<StationFormCubit>(
