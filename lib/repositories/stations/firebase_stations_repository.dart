@@ -26,7 +26,7 @@ class FirebaseStationsRepository extends StationsRepository {
   }
 
   @override
-  Future<void> addStation(Map<String, dynamic> formData) {
+  Future<DocumentReference> addStation(Map<String, dynamic> formData) {
     return _stationsRef.add(formData);
   }
 }
