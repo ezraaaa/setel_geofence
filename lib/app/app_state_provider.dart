@@ -5,6 +5,7 @@ import 'package:setel_geofence/admin/cubits/station_form/station_form_cubit.dart
 import 'package:setel_geofence/app/app.dart';
 import 'package:setel_geofence/home/blocs/geofence/geofence_bloc.dart';
 import 'package:setel_geofence/home/blocs/permission/permission_bloc.dart';
+import 'package:setel_geofence/home/cubits/map/map_cubit.dart';
 import 'package:setel_geofence/repositories/stations/firebase_stations_repository.dart';
 
 class AppStateProvider extends StatelessWidget {
@@ -44,6 +45,9 @@ class AppStateProvider extends StatelessWidget {
                   RepositoryProvider.of<FirebaseStationsRepository>(context),
             ),
           ),
+          BlocProvider<MapCubit>(
+            create: (_) => MapCubit(),
+          )
         ],
         child: App(),
       ),
