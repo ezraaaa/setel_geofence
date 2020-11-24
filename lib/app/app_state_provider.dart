@@ -50,7 +50,7 @@ class AppStateProvider extends StatelessWidget {
             create: (_) => MapCubit(),
           ),
           BlocProvider<CurrentLocationBloc>(
-            create: (_) => CurrentLocationBloc(),
+            create: (_) => CurrentLocationBloc()..add(LoadCurrentLocation()),
           )
         ],
         child: App(),
