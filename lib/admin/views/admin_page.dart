@@ -26,11 +26,13 @@ class _AdminPageState extends State<AdminPage> {
     return BlocListener<StationFormCubit, StationFormState>(
       listener: (BuildContext context, StationFormState state) {
         if (state.status.isSubmissionSuccess) {
-          _scaffoldKey.currentState.showSnackBar(
-            const SnackBar(
-              content: Text('Station added'),
-            ),
-          );
+          _scaffoldKey.currentState
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+              const SnackBar(
+                content: Text('Station added'),
+              ),
+            );
         }
       },
       child: Scaffold(
@@ -52,32 +54,55 @@ class _AdminPageState extends State<AdminPage> {
             const SliverToBoxAdapter(
               child: Divider(),
             ),
+            SliverFillRemaining(
+              child: Center(
+                child: BlocBuilder<StationsBloc, StationsState>(
+                  builder: (BuildContext context, StationsState state) {
+                    if (state is StationsLoadSuccess &&
+                        state.stations.isEmpty) {
+                      return IllustratedMessage(
+                        illustration: UnDrawIllustration.empty,
+                        height: MediaQuery.of(context).size.width * 0.3,
+                        title: 'No stations',
+                        subtitle:
+                            'It seems like there is no stations added.\nPress + to add a station',
+                      );
+                    }
+                    return const SizedBox.shrink();
+                  },
+                ),
+              ),
+            ),
             SliverToBoxAdapter(
               child: BlocBuilder<StationsBloc, StationsState>(
                 builder: (BuildContext context, StationsState state) {
                   if (state is StationsLoadSuccess) {
                     final List<Station> stations = state.stations;
 
-                    return ListView.separated(
-                      padding: EdgeInsets.zero,
-                      shrinkWrap: true,
-                      physics: const ClampingScrollPhysics(),
-                      itemBuilder: (BuildContext context, int index) {
-                        final Station station = stations[index];
+                    if (stations.isNotEmpty) {
+                      return ListView.separated(
+                        padding: EdgeInsets.zero,
+                        shrinkWrap: true,
+                        physics: const ClampingScrollPhysics(),
+                        itemBuilder: (BuildContext context, int index) {
+                          final Station station = stations[index];
 
-                        return ListTile(
-                          onTap: () {},
-                          title: Text(station.name),
-                          subtitle:
-                              Text('${station.latitude}, ${station.longitude}'),
-                          trailing: Text('${station.radius} m'),
-                        );
-                      },
-                      separatorBuilder: (BuildContext context, int index) {
-                        return const Divider();
-                      },
-                      itemCount: stations.length,
-                    );
+                          return ListTile(
+                            onTap: () {},
+                            title: Text(station.name),
+                            subtitle: Text(
+                                '${station.latitude}, ${station.longitude}'),
+                            trailing: Text('${station.radius} m'),
+                          );
+                        },
+                        separatorBuilder: (BuildContext context, int index) {
+                          return const Divider();
+                        },
+                        itemCount: stations.length,
+                      );
+                    } else {
+                      return const SizedBox.shrink();
+                    }
                   } else if (state is StationsLoadInProgress) {
                     return Loader(
                       isShimmer: true,
