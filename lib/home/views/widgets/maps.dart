@@ -77,13 +77,15 @@ class _MapsState extends State<Maps> {
               final GeofenceState geofenceState =
                   context.read<GeofenceBloc>().state;
               final SsidState ssidState = context.read<SsidBloc>().state;
+              Station _station;
 
-              if (ssidState is SSIDMatchSuccess ||
-                  geofenceState is GeofenceEnterSuccess) {
-                final Station _station =
-                    (ssidState as SSIDMatchSuccess).station ??
-                        (geofenceState as GeofenceEnterSuccess).station;
+              if (ssidState is SSIDMatchSuccess) {
+                _station = ssidState.station;
+              } else if (geofenceState is GeofenceEnterSuccess) {
+                _station = geofenceState.station;
+              }
 
+              if (_station != null) {
                 if (station.id == _station.id) {
                   _showStationDetailsBottomSheet(
                     context: context,
