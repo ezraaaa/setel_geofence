@@ -45,7 +45,7 @@ class AppStateProvider extends StatelessWidget {
             },
           ),
           BlocProvider<WifiBloc>(
-            create: (_) => WifiBloc(),
+            create: (_) => WifiBloc()..add(InitiateConnectivity()),
           ),
           BlocProvider<SsidBloc>(
             create: (BuildContext context) {
