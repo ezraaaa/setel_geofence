@@ -36,10 +36,12 @@ class SsidBloc extends Bloc<SsidEvent, SsidState> {
     yield SSIDMatchInProgress();
     final WifiInfo _wifiInfo = WifiInfo();
     final String ssid = await _wifiInfo.getWifiName();
-    final Station station = _stations.firstWhere((Station station) {
-      return station.ssid == ssid;
-    });
-    yield SSIDMatchSuccess(station);
+    if (_stations.any((Station station) => station.ssid == ssid)) {
+      final Station station = _stations.firstWhere((Station station) {
+        return station.ssid == ssid;
+      });
+      yield SSIDMatchSuccess(station);
+    }
   }
 
   @override
