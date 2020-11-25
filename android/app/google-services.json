@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "578742501532",
+    "firebase_url": "https://setel-geofence-e2411.firebaseio.com",
+    "project_id": "setel-geofence-e2411",
+    "storage_bucket": "setel-geofence-e2411.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:578742501532:android:c8bfe7ac6ea02b1cdc6d59",
+        "android_client_info": {
+          "package_name": "com.setel.setel_geofence"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "578742501532-l6fq6nkgocqrf5q74gqsoksm4sk7o3c8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.setel.setel_geofence",
+            "certificate_hash": "fadd62d1688a3b66c316428de653d72d940b150e"
+          }
+        },
+        {
+          "client_id": "578742501532-11mmli86di3rudutqrfgvdp7vrc939vv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCH49T341d-hBGUreamznFUEp0VwNbrRsY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "578742501532-11mmli86di3rudutqrfgvdp7vrc939vv.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "578742501532-n3a45rooe2vs2i9mn6sh12k0urk3o42b.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.setel.setelGeofence"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
