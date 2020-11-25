@@ -35,7 +35,7 @@ class SsidBloc extends Bloc<SsidEvent, SsidState> {
   Stream<SsidState> _mapMatchSSIDToState() async* {
     yield SSIDMatchInProgress();
     final WifiInfo _wifiInfo = WifiInfo();
-    final String ssid = await _wifiInfo.getWifiBSSID();
+    final String ssid = await _wifiInfo.getWifiName();
     final Station station = _stations.firstWhere((Station station) {
       return station.ssid == ssid;
     });

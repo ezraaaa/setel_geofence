@@ -66,18 +66,25 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return MultiBlocListener(
       listeners: <BlocListener<dynamic, dynamic>>[
-        BlocListener<GeofenceBloc, GeofenceState>(
-          listener: (BuildContext context, GeofenceState geofenceState) {
-            final SsidState ssidState =
-                BlocProvider.of<SsidBloc>(context).state;
-
-            if (geofenceState is GeofenceEnterSuccess ||
-                ssidState is SSIDMatchSuccess) {
+        BlocListener<SsidBloc, SsidState>(
+          listener: (BuildContext context, SsidState state) {
+            if (state is SSIDMatchSuccess) {
               _showStationDetailsBottomSheet(
-                  context: context,
-                  station: (geofenceState as GeofenceEnterSuccess).station);
+                context: context,
+                station: state.station,
+              );
             }
-            if (geofenceState is GeofenceExitSuccess) {
+          },
+        ),
+        BlocListener<GeofenceBloc, GeofenceState>(
+          listener: (BuildContext context, GeofenceState state) {
+            if (state is GeofenceEnterSuccess) {
+              _showStationDetailsBottomSheet(
+                context: context,
+                station: state.station,
+              );
+            }
+            if (state is GeofenceExitSuccess) {
               Navigator.popUntil(
                   context, ModalRoute.withName(Navigator.defaultRouteName));
             }
@@ -87,6 +94,10 @@ class _HomePageState extends State<HomePage> {
           listener: (BuildContext context, WifiState state) {
             if (state is WifiActivityDetectSuccess) {
               BlocProvider.of<SsidBloc>(context).add(MatchSSID());
+            }
+            if (state is WifiActivityDetectFailure) {
+              Navigator.popUntil(
+                  context, ModalRoute.withName(Navigator.defaultRouteName));
             }
           },
         ),
