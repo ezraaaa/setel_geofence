@@ -46,6 +46,7 @@ class _AddStationPageState extends State<AddStationPage> {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: AddStationForm(
+                  scaffoldKey: _scaffoldKey,
                   formKey: _formKey,
                   enabled: enabled,
                 ),

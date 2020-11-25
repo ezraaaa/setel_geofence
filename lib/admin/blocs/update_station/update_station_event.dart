@@ -4,7 +4,7 @@ abstract class UpdateStationEvent extends Equatable {
   const UpdateStationEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => null;
 }
 
 class RemoveStation extends UpdateStationEvent {

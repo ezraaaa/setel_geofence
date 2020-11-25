@@ -4,7 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:setel_geofence/admin/cubits/station_form/station_form_cubit.dart';
 
 class AddStationForm extends StatefulWidget {
-  const AddStationForm({@required this.formKey, @required this.enabled});
+  const AddStationForm({
+    @required this.scaffoldKey,
+    @required this.formKey,
+    @required this.enabled,
+  });
+  final GlobalKey<ScaffoldMessengerState> scaffoldKey;
   final GlobalKey<FormState> formKey;
   final bool enabled;
 
@@ -22,6 +27,7 @@ class _AddStationFormState extends State<AddStationForm> {
   @override
   Widget build(BuildContext context) {
     return Form(
+      key: widget.formKey,
       child: Wrap(
         runSpacing: 16.0,
         children: <Widget>[
@@ -156,7 +162,16 @@ class _AddStationFormState extends State<AddStationForm> {
                 keyboardType: TextInputType.text,
                 onFieldSubmitted: (String term) {
                   _ssidNode.unfocus();
-                  context.read<StationFormCubit>().addStation();
+                  if (widget.formKey.currentState.validate()) {
+                    widget.formKey.currentState.save();
+                    context.read<StationFormCubit>().addStation();
+                  } else {
+                    widget.scaffoldKey.currentState
+                      ..hideCurrentSnackBar()
+                      ..showSnackBar(const SnackBar(
+                        content: Text('Please fill up the required fields'),
+                      ));
+                  }
                 },
                 validator: (String value) {
                   return state.ssid.invalid || value.isEmpty
