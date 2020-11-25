@@ -22,6 +22,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  bool detailsOpened = false;
+
   void _showStationDetailsBottomSheet(
       {@required BuildContext context, @required Station station}) {
     showModalBottomSheet<dynamic>(

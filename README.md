@@ -72,3 +72,9 @@ To build and release for iOS, follow this [guide](https://flutter.io/ios-release
 ## Known Issues
 * Exit of a geofence does not work on Android, however, it works on iOS. [View Issue](https://github.com/DwayneCoussement/flutter_geofence/issues/5)
 * 'Always' location permission access needed for Android in order for the app to start listening geofence acitivty
+* ScaffoldMessengerState isn't stable causing malfunction of SnackBar [View Issue](https://flutter.dev/docs/release/breaking-changes/scaffold-messenger)
+
+## Possible future enhancement
+* Open only 1 station details if both wifi ssid matched and location match (With WiFi as the highest priority)
+* Hold a location and prepopulate station form
+* Authentication
