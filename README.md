@@ -71,3 +71,4 @@ To build and release for iOS, follow this [guide](https://flutter.io/ios-release
 
 ## Known Issues
 * Exit of a geofence does not work on Android, however, it works on iOS. [View Issue](https://github.com/DwayneCoussement/flutter_geofence/issues/5)
+* 'Always' location permission access needed for Android in order for the app to start listening geofence acitivty
