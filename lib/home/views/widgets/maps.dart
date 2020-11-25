@@ -19,7 +19,7 @@ class Maps extends StatefulWidget {
 }
 
 class _MapsState extends State<Maps> {
-  Coordinate coordinate = Coordinate(37.42215078611502, -122.08408970242235);
+  Coordinate coordinate = Coordinate(3.6686821686778353, 102.01500520790034);
 
   void _showStationDetailsBottomSheet(
       {@required BuildContext context, @required Station station}) {
@@ -61,7 +61,7 @@ class _MapsState extends State<Maps> {
         },
         initialCameraPosition: CameraPosition(
           target: LatLng(coordinate.latitude, coordinate.longitude),
-          zoom: 18.0,
+          zoom: 12.0,
         ),
         circles: widget.stations.map((Station station) {
           return Circle(
