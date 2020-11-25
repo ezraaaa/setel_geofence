@@ -44,6 +44,9 @@ class AppStateProvider extends StatelessWidget {
               )..add(InitiateGeofence());
             },
           ),
+          BlocProvider<CurrentLocationBloc>(
+            create: (_) => CurrentLocationBloc()..add(LoadCurrentLocation()),
+          ),
           BlocProvider<WifiBloc>(
             create: (_) => WifiBloc(),
           ),
@@ -62,9 +65,6 @@ class AppStateProvider extends StatelessWidget {
           ),
           BlocProvider<MapCubit>(
             create: (_) => MapCubit(),
-          ),
-          BlocProvider<CurrentLocationBloc>(
-            create: (_) => CurrentLocationBloc()..add(LoadCurrentLocation()),
           ),
           BlocProvider<GeofencesBloc>(
             create: (_) => GeofencesBloc(),
