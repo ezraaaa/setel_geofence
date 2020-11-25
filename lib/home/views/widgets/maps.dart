@@ -5,6 +5,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:setel_geofence/common_widgets/station/station_details.dart';
 import 'package:setel_geofence/home/blocs/current_location/current_location_bloc.dart';
 import 'package:setel_geofence/home/blocs/geofence/geofence_bloc.dart';
+import 'package:setel_geofence/home/blocs/ssid/ssid_bloc.dart';
 import 'package:setel_geofence/home/cubits/map/map_cubit.dart';
 import 'package:setel_geofence/home/models/station/station.dart';
 import 'package:setel_geofence/resources/colours.dart';
@@ -75,8 +76,15 @@ class _MapsState extends State<Maps> {
             onTap: () {
               final GeofenceState geofenceState =
                   context.read<GeofenceBloc>().state;
-              if (geofenceState is GeofenceEnterSuccess) {
-                if (geofenceState.station.id == station.id) {
+              final SsidState ssidState = context.read<SsidBloc>().state;
+
+              if (geofenceState is GeofenceEnterSuccess ||
+                  ssidState is SSIDMatchSuccess) {
+                final Station _station =
+                    (ssidState as SSIDMatchSuccess).station ??
+                        (geofenceState as GeofenceEnterSuccess).station;
+
+                if (station.id == _station.id) {
                   _showStationDetailsBottomSheet(
                     context: context,
                     station: station,
