@@ -43,6 +43,8 @@ class GeofenceBloc extends Bloc<GeofenceEvent, GeofenceState> {
       add(EnterGeofence(entry.id));
     });
 
+    /// Geofence exit works with only iOS
+    /// Existing issue: (https://github.com/DwayneCoussement/flutter_geofence/issues/5)
     Geofence.startListening(GeolocationEvent.exit, (Geolocation entry) {
       add(ExitGeofence(entry.id));
     });

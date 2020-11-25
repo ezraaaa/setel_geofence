@@ -18,6 +18,8 @@ class Maps extends StatefulWidget {
 }
 
 class _MapsState extends State<Maps> {
+  Coordinate coordinate = Coordinate(37.42215078611502, -122.08408970242235);
+
   void _showStationDetailsBottomSheet(
       {@required BuildContext context, @required Station station}) {
     showModalBottomSheet<dynamic>(
@@ -44,60 +46,58 @@ class _MapsState extends State<Maps> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CurrentLocationBloc, CurrentLocationState>(
-      builder: (BuildContext context, CurrentLocationState state) {
-        Coordinate coordinate =
-            Coordinate(37.42215078611502, -122.08408970242235);
-
+    return BlocListener<CurrentLocationBloc, CurrentLocationState>(
+      listener: (BuildContext context, CurrentLocationState state) {
         if (state is CurrentLocationLoadSuccess) {
-          coordinate = state.coordinate;
+          setState(() {
+            coordinate = state.coordinate;
+          });
         }
-
-        return GoogleMap(
-          onMapCreated: (GoogleMapController controller) {
-            BlocProvider.of<MapCubit>(context).initMapController(controller);
-          },
-          initialCameraPosition: CameraPosition(
-            target: LatLng(coordinate.latitude, coordinate.longitude),
-            zoom: 18.0,
-          ),
-          circles: widget.stations.map((Station station) {
-            return Circle(
-              circleId: CircleId(station.id),
-              radius: double.parse(station.radius.toString()),
-              center: LatLng(
-                double.parse(station.latitude.toString()),
-                double.parse(station.longitude.toString()),
-              ),
-              fillColor: setelBlue100.withOpacity(0.5),
-              strokeWidth: 0,
-              onTap: () {
-                final GeofenceState geofenceState =
-                    context.read<GeofenceBloc>().state;
-                if (geofenceState is GeofenceEnterSuccess) {
-                  if (geofenceState.station.id == station.id) {
-                    _showStationDetailsBottomSheet(
-                      context: context,
-                      station: station,
-                    );
-                  }
-                }
-              },
-              consumeTapEvents: true,
-            );
-          }).toSet(),
-          buildingsEnabled: true,
-          indoorViewEnabled: true,
-          compassEnabled: true,
-          zoomGesturesEnabled: true,
-          zoomControlsEnabled: false,
-          rotateGesturesEnabled: true,
-          tiltGesturesEnabled: true,
-          scrollGesturesEnabled: true,
-          myLocationEnabled: true,
-          myLocationButtonEnabled: false,
-        );
       },
+      child: GoogleMap(
+        onMapCreated: (GoogleMapController controller) {
+          BlocProvider.of<MapCubit>(context).initMapController(controller);
+        },
+        initialCameraPosition: CameraPosition(
+          target: LatLng(coordinate.latitude, coordinate.longitude),
+          zoom: 18.0,
+        ),
+        circles: widget.stations.map((Station station) {
+          return Circle(
+            circleId: CircleId(station.id),
+            radius: double.parse(station.radius.toString()),
+            center: LatLng(
+              double.parse(station.latitude.toString()),
+              double.parse(station.longitude.toString()),
+            ),
+            fillColor: setelBlue100.withOpacity(0.5),
+            strokeWidth: 0,
+            onTap: () {
+              final GeofenceState geofenceState =
+                  context.read<GeofenceBloc>().state;
+              if (geofenceState is GeofenceEnterSuccess) {
+                if (geofenceState.station.id == station.id) {
+                  _showStationDetailsBottomSheet(
+                    context: context,
+                    station: station,
+                  );
+                }
+              }
+            },
+            consumeTapEvents: true,
+          );
+        }).toSet(),
+        buildingsEnabled: true,
+        indoorViewEnabled: true,
+        compassEnabled: true,
+        zoomGesturesEnabled: true,
+        zoomControlsEnabled: false,
+        rotateGesturesEnabled: true,
+        tiltGesturesEnabled: true,
+        scrollGesturesEnabled: true,
+        myLocationEnabled: true,
+        myLocationButtonEnabled: false,
+      ),
     );
   }
 }

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_geofence/geofence.dart';
+import 'package:location/location.dart';
 
 part 'current_location_event.dart';
 part 'current_location_state.dart';
@@ -22,11 +23,10 @@ class CurrentLocationBloc
 
   Stream<CurrentLocationState> _mapLoadCurrentLocationToState() async* {
     yield CurrentLocationLoadInProgress();
-    try {
-      final Coordinate coordinate = await Geofence.getCurrentLocation();
-      yield CurrentLocationLoadSuccess(coordinate);
-    } catch (error) {
-      yield CurrentLocationLoadFailure(error.toString());
-    }
+    final Location location = Location();
+    final LocationData locationData = await location.getLocation();
+    final Coordinate coordinate =
+        Coordinate(locationData.latitude, locationData.longitude);
+    yield CurrentLocationLoadSuccess(coordinate);
   }
 }

@@ -48,6 +48,7 @@ dependencies:
   formz:
   google_maps_flutter:
   connectivity:
+  location:
   wifi_info_flutter:
   flutter_geofence:
 
