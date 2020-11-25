@@ -13,6 +13,8 @@ flutter doctor
 Once you are done setting up, run the following command in your terminal
 
 ```
+flutter channel beta
+flutter upgrade
 https://github.com/ezraaaa/setel_geofence.git
 cd setel_geofence
 flutter packages get
@@ -66,3 +68,6 @@ To build and release for Android, follow this [guide](https://flutter.io/android
     ```
 
 To build and release for iOS, follow this [guide](https://flutter.io/ios-release/)
+
+## Known Issues
+* Exit of a geofence does not work on Android, however, it works on iOS. [View Issue](https://github.com/DwayneCoussement/flutter_geofence/issues/5)
